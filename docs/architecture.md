@@ -46,7 +46,7 @@ Pipeline ini memanfaatkan **AWS Bedrock** (Whisper v3 untuk transkripsi & Claude
 flowchart TD;
     A[User Upload Video/Audio]-->B[S3 Input Bucket];
     B-->|Event Trigger| C[AWS Lambda];
-    C-->D[Bedrock - Whisper v3 (Transcription)];
+    C-->D[Bedrock Whisper v3 (Transcription)];
 ```
 
 ---
