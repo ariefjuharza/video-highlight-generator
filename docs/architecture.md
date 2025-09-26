@@ -2,45 +2,23 @@
 
 ## 1. Overview
 
-Video Highlight Generator adalah aplikasi berbasis AI yang membantu kreator konten mengekstrak highlight dari video/audio panjang.  
-Pipeline ini memanfaatkan **AWS Bedrock** (Whisper v3 untuk transkripsi & Claude untuk ringkasan) dalam arsitektur **serverless** yang efisien.
+Video Highlight Generator adalah aplikasi berbasis AI yang membantu kreator konten mengekstrak highlight dari video/audio berdurasi panjang.  
+Solusi ini menggunakan **Amazon Bedrock** (Whisper v3 untuk transkripsi & Claude untuk ringkasan) dengan pendekatan **serverless architecture** agar mudah di-scale dan hemat biaya.
 
 ---
 
 ## 2. High-Level Flow
 
-1. **User Upload** → Pengguna mengunggah file video/audio ke **Amazon S3 (input bucket)**.
-2. **Lambda Trigger** → Event upload memicu **AWS Lambda**.
-3. **Transcription** → Lambda memanggil **Whisper v3 (via Bedrock)** untuk menghasilkan transkrip.
-4. **Summarization** → Transkrip diproses oleh **Claude (via Bedrock)** untuk mengekstrak highlight.
-5. **Store Results** → Hasil highlight (teks/audio/JSON) disimpan kembali di **Amazon S3 (output bucket)**.
-6. **Access Results** → User dapat mengakses hasil ringkasan dari bucket output atau melalui API/Frontend (opsional).
+1. **User Upload** → Pengguna mengunggah file video/audio ke **Amazon S3 (Input Bucket)**.
+2. **Event Trigger** → Upload memicu **AWS Lambda** melalui event notification.
+3. **Transcription** → Lambda memanggil **Whisper v3 (via Bedrock)** untuk menghasilkan transkrip teks.
+4. **Summarization** → Teks hasil transkripsi diproses oleh **Claude (via Bedrock)** untuk mengekstrak highlight penting.
+5. **Store Results** → Highlight disimpan di **Amazon S3 (Output Bucket)** dalam format teks (JSON/Markdown).
+6. **Access Results** → Pengguna dapat mengunduh hasil ringkasan langsung dari S3 atau melalui API/Frontend (opsional).
 
 ---
 
-## 3. Architecture Diagram (ASCII)
-
-     +-------------+
-     |   User      |
-     | (Upload)    |
-     +------+------+
-            |
-            v
-    +-------+-------+
-    |   Amazon S3   |  (Input Bucket)
-    +-------+-------+
-            |
-    [Trigger Event]
-            v
-    +-------+-------+
-    |    AWS Lambda |
-    +---+-------+---+
-        |       |
-        |       |
-
----
-
-## 4. Architecture Diagram (Mermaid)
+## 3. Architecture Diagram (Mermaid)
 
 ```mermaid
 flowchart TD
@@ -56,11 +34,33 @@ flowchart TD
 
 ---
 
-## 5. Components
+## 4. Components
 
-- **Amazon S3**: Storage untuk file input/output.
-- **AWS Lambda**: Orchestrator serverless untuk trigger pipeline.
-- **Amazon Bedrock (Whisper v3)**: Transkripsi audio ke teks.
-- **Amazon Bedrock (Claude)**: Ringkasan teks & highlight otomatis.
-- _(Optional)_ **Amazon Polly / TTS**: Konversi hasil ringkasan ke suara.
-- _(Optional)_ **Frontend (React/Next.js)**: UI untuk upload & preview hasil.
+- **Amazon S3**
+  - Input bucket: tempat file video/audio diunggah.
+  - Output bucket: tempat hasil transkripsi & highlight disimpan.
+- **AWS Lambda**
+  - Menangani trigger event dari S3.
+  - Memanggil model di Amazon Bedrock (Whisper & Claude).
+  - Menyimpan hasil ke S3 output.
+- **Amazon Bedrock**
+  - **Whisper v3** → Automatic Speech Recognition (ASR).
+  - **Claude** → Summarization & highlight extraction.
+- _(Optional)_ **Amazon API Gateway**
+  - Menyediakan endpoint API untuk mengakses pipeline secara real-time.
+- _(Optional)_ **Frontend (React/Next.js)**
+  - Antarmuka user-friendly untuk upload & membaca hasil.
+
+---
+
+## 5. MVP Scope (Hackathon)
+
+Untuk lingkup MVP dalam Hackathon:
+
+- Support upload audio/video ke S3.
+- Pipeline otomatis → Transkripsi → Highlight.
+- Simpan hasil di S3 (format JSON/Markdown).
+- Dokumentasi & demo (misalnya link hasil di S3).
+- Opsional: Tambahkan frontend sederhana untuk demo.
+
+---
