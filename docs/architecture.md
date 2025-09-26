@@ -47,9 +47,9 @@ flowchart TD
     A[User Upload Video/Audio] --> B[S3 Input Bucket]
     B -->|Event Trigger| C[AWS Lambda]
     C --> D[Bedrock - Whisper v3]
-    D -->|Transcription| C
+    D -->|Transcribed| C
     C --> E[Bedrock - Claude]
-    E -->|Summarization| C
+    E -->|Summarized| C
     C --> F[S3 Output Bucket]
     F --> G[User / API / Frontend]
 ```
