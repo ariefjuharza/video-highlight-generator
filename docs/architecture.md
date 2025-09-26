@@ -45,25 +45,30 @@ Pipeline ini memanfaatkan **AWS Bedrock** (Whisper v3 untuk transkripsi & Claude
 ```mermaid
 flowchart TD
     A[User Upload Video/Audio] --> B[S3 Input Bucket]
-    B -- Trigger --> C[AWS Lambda]
-    C -- Call --> D[Bedrock: Whisper v3 (Transcription)]
-    D -- Transcript --> C
-    C -- Call --> E[Bedrock: Claude (Summarization)]
-    E -- Highlights --> C
+    B -->|Trigger| C[AWS Lambda]
+    C --> D[Bedrock - Whisper v3 (Transcription)]
+    D --> C
+    C --> E[Bedrock - Claude (Summarization)]
+    E --> C
     C --> F[S3 Output Bucket]
     F --> G[User / API / Frontend]
 ```
 
 ---
 
-## 5. Components
+5. Components
 
-- **Amazon S3**: Storage untuk file input/output.
-- **AWS Lambda**: Orchestrator serverless untuk trigger pipeline.
-- **Amazon Bedrock (Whisper v3)**: Transkripsi audio ke teks.
-- **Amazon Bedrock (Claude)**: Ringkasan teks & highlight otomatis.
-- _(Optional)_ **Amazon Polly / TTS**: Konversi hasil ringkasan ke suara.
-- _(Optional)_ **Frontend (React/Next.js)**: UI untuk upload & preview hasil.
+Amazon S3: Storage untuk file input/output.
+
+AWS Lambda: Orchestrator serverless untuk trigger pipeline.
+
+Amazon Bedrock (Whisper v3): Transkripsi audio ke teks.
+
+Amazon Bedrock (Claude): Ringkasan teks & highlight otomatis.
+
+(Optional) Amazon Polly / TTS: Konversi hasil ringkasan ke suara.
+
+(Optional) Frontend (React/Next.js): UI untuk upload & preview hasil.
 
 ```
 
