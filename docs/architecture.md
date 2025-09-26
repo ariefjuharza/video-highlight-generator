@@ -52,7 +52,7 @@ flowchart TD
     E --> C
     C --> F[S3 Output Bucket]
     F --> G[User / API / Frontend]
-```
+
 
 ---
 
@@ -69,6 +69,8 @@ Amazon Bedrock (Claude): Ringkasan teks & highlight otomatis.
 (Optional) Amazon Polly / TTS: Konversi hasil ringkasan ke suara.
 
 (Optional) Frontend (React/Next.js): UI untuk upload & preview hasil.
+
+```
 
 ```
 
