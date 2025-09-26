@@ -48,8 +48,8 @@ flowchart TD
     B -->|Event Trigger| C[AWS Lambda]
     C --> D[Bedrock - Whisper v3]
     D -->|Transcription| C
-    C --> E[Bedrock - Claude / Summarization]
-    E --> C
+    C --> E[Bedrock - Claude]
+    E -->|Summarization| C
     C --> F[S3 Output Bucket]
     F --> G[User / API / Frontend]
 ```
