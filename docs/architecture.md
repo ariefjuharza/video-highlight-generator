@@ -48,7 +48,7 @@ flowchart TD
     s3in -->|Trigger| lambda[AWS Lambda]
     lambda --> whisper[Whisper v3]
     whisper --> lambda
-    lambda --> claude[Claude (Summarization)]
+    lambda --> claude[Claude]
     claude --> lambda
     lambda --> s3out[S3 Output Bucket]
     s3out --> frontend[User / API / Frontend]
