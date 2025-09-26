@@ -38,24 +38,6 @@ Pipeline ini memanfaatkan **AWS Bedrock** (Whisper v3 untuk transkripsi & Claude
         |       |
         |       |
 
-Transcribe| |Summarize
-(Whisper v3)| |(Claude)
-v v
-+--------+-------+-------+
-| Amazon Bedrock (Models)|
-+------------------------+
-|
-v
-+-------+-------+
-| Amazon S3 | (Output Bucket)
-+-------+-------+
-|
-v
-+------+------+
-| User/API |
-| (Get Result) |
-+-------------+
-
 ---
 
 ## 4. Architecture Diagram (Mermaid)
