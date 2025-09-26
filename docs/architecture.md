@@ -43,10 +43,15 @@ Pipeline ini memanfaatkan **AWS Bedrock** (Whisper v3 untuk transkripsi & Claude
 ## 4. Architecture Diagram (Mermaid)
 
 ```mermaid
-flowchart TD;
-    A[User Upload Video/Audio]-->B[S3 Input Bucket];
-    B-->|Event Trigger| C[AWS Lambda];
-    C-->D[Bedrock Whisper v3];
+flowchart TD
+    user[User Upload Video/Audio] --> s3in[S3 Input Bucket]
+    s3in -->|Trigger| lambda[AWS Lambda]
+    lambda --> whisper[Whisper v3 (Transcription)]
+    whisper --> lambda
+    lambda --> claude[Claude (Summarization)]
+    claude --> lambda
+    lambda --> s3out[S3 Output Bucket]
+    s3out --> frontend[User / API / Frontend]
 ```
 
 ---
